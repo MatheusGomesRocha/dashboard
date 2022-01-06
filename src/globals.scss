@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Sunshiney&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --white: #fff;
+    --black: #000;
+
+    --black-100: #111; 
+    --black-200: #222;
+    --black-600: #666;
+    --kinda-black: #040718;
+
+    --gray-50: #f7f8fa;
+    --gray-100: #e6e8eb;
+    --gray-200: #afb2b1;
+    --gray-500: #808080;
+    --gray-800: #494d4b;
+
+    --brown: #322D27;
+
+    --yellow: #F9C122;
+    --red: #CA0808;
+    --green: #548C1D;
+    --pink: #E31C6E;
+    
+    --purple: #9f75ff;
+    --purple-100: #B393FF;
+
+    --light-blue: #5579FC;
+    --blue: #0297FF;
+    --dark-blue: #1121ef;    // #092456
+    --blueish-gray: #a4acb7;
+}
+
+@media(min-width: 1100px) {
+    p {
+        font-size: 1.3rem;
+    }
+}
+
+@media(max-width: 1080px) {
+    html {
+        font-size: 93,75%;
+    }
+}
+@media(max-width: 720px) {
+    html {
+        font-size: 85,5%;
+    }
+}
+
+body {
+    background: var(--white);
+}
+
+body, input, textarea, button {
+    color: var(--gray-500);
+    font-family: 'Baloo Bhai 2', cursive;
+    color: var(--black);
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+li {
+    font-family: 'Baloo Bhai 2', cursive;
+    font-weight: 100;
+}
+
+// Italic title Texts
+// font-family: 'Architects Daughter', cursive; 
