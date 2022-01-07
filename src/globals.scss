@@ -77,8 +77,19 @@ h2 {
 }
 
 li {
-    font-family: 'Baloo Bhai 2', cursive;
+    font-family: 'Architects Daughter', cursive;
     font-weight: 100;
+}
+
+.app {
+    display: flex;
+    flex-direction: row;
+    
+    main {
+        flex: 1;
+        overflow-y: scroll;
+        height: 100vh;
+    }
 }
 
 // Italic title Texts
