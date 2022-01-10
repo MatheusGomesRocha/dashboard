@@ -20,6 +20,7 @@ export default function App() {
   const [isValidCpf, setIsValidCpf] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [cpfNumber, setCpf] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -40,7 +41,13 @@ export default function App() {
   function changeForm() {
     setIsLogin(!isLogin);
     setCpf('');
+    setFirstName('');
+    setLastName('');
+    setEmail('');
     setPassword('');
+    setConfirmPassword('');
+    setShowPassword(false);
+    setShowConfirmPassword(false);
   }
 
   return(
@@ -107,12 +114,18 @@ export default function App() {
             <div className={styles.inlineInput}>
               <div className={styles.inputArea}>
                 <label>Senha</label>
-                <input onChange={v => setPassword(v.target.value)} value={password} type="password" />
-              </div>
+                  <div className={styles.inputWrapped}>
+                    <input type={showPassword ? 'text' : 'password'} onChange={v => setPassword(v.target.value)} value={password} />
+                    <img onClick={() => setShowPassword(!showPassword)} src={showPassword ? ViewOn : ViewOff} />
+                  </div>              
+                </div>
               
               <div className={styles.inputArea}>
                 <label>Confrimar senha</label>
-                <input onChange={v => setConfirmPassword(v.target.value)} value={confirmPassword} type="password" />
+                <div className={styles.inputWrapped}>
+                  <input type={showConfirmPassword ? 'text' : 'password'} onChange={v => setConfirmPassword(v.target.value)} value={confirmPassword} />
+                  <img onClick={() => setShowConfirmPassword(!showConfirmPassword)} src={showConfirmPassword ? ViewOn : ViewOff} />
+                </div>
               </div>
             </div>
           </>
