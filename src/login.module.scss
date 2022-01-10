@@ -1,0 +1,120 @@
+.container {
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+
+    .sideArea {
+        background-color: #0028f3;
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        height: 100vh;
+        padding: 0 5%;
+
+        p {
+            color: var(--white);
+            font-size: 2rem;
+            width: 90%;
+            margin-top: 4rem;
+            line-height: 2.7rem;
+        }
+
+        img {
+            margin: 4rem 0;
+        }
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 70%;
+        height: 100vh;
+        padding: 0 18%;
+
+        h2 {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+    
+        .inlineInput {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 1rem;
+    
+            .inputArea {
+                display: flex;
+                flex-direction: column;
+                width: 15rem;
+    
+                label {
+                    color: var(--gray-800);
+                    font-weight: bold;
+                    font-size: .9rem;
+                }
+                
+                input {
+                    background-color: transparent;
+                    outline: 0;
+                    transition: 250ms;
+                    width: 100%;
+                    height: 2.5rem;
+                    border: 1px solid var(--gray-200);
+                    border-radius: .3rem;
+                    padding-left: .7rem;
+                    margin-top: .3rem;
+
+                    &:focus {
+                        border-color: var(--black);
+                    }
+                }
+            }
+        }
+    
+        .submit {
+            background-color: #0028f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 250ms;
+            height: 2.5rem;
+            width: 40%;
+            border-radius: .5rem;
+            margin-top: 1rem;
+
+            &:hover {
+                filter: brightness(0.8);
+            }
+            
+            span {
+                color: var(--white);
+            }
+        }
+
+        .goToLogin {
+            display: flex;
+            align-items: center;
+            margin-top: .6rem;
+    
+            p {
+                font-size: 1.1rem;
+            }
+    
+            span {
+                cursor: pointer;
+                transition: 250ms;
+                font-size: 1.1rem;
+                margin-left: .5rem;
+                color: #0028f3;
+    
+                &:hover {
+                    filter: brightness(0.8);
+                }
+            }
+        }
+    }
+}
