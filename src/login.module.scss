@@ -53,6 +53,27 @@
                 }
             }
         }
+
+        .inputWrapped {
+            display: flex;
+            align-items: center;
+            padding: 0 .7rem;
+            height: 2.5rem;
+            border-radius: .3rem;
+            border: 1px solid var(--gray-200);
+
+            input {
+                border: 0;
+                margin-top: 0;
+                padding: 0;
+            }
+
+            img {
+                cursor: pointer;
+                width: 1.7rem;
+                height: 1.7rem;
+            }
+        }
     
         .submit {
             background-color: #0028f3;

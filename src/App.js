@@ -6,6 +6,9 @@ import styles from './login.module.scss';
 
 import BankSvg from './assets/svg/bank.svg';
 
+import ViewOn from './assets/icons/view.png';
+import ViewOff from './assets/icons/view-off.png';
+
 import Header from './components/Header';
 import Menu from './components/Menu';
 import MainScreen from './components/MainScreen';
@@ -14,9 +17,16 @@ import MainScreen from './components/MainScreen';
 // <div>Some Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
 export default function App() {
-  const [cpfNumber, setCpf] = useState('');
   const [isValidCpf, setIsValidCpf] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [cpfNumber, setCpf] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   function submit() { 
     if(cpf.isValid(cpfNumber)) {
@@ -30,6 +40,7 @@ export default function App() {
   function changeForm() {
     setIsLogin(!isLogin);
     setCpf('');
+    setPassword('');
   }
 
   return(
@@ -51,7 +62,10 @@ export default function App() {
 
               <div style={{marginTop: '1rem', width: '30rem'}} className={styles.inputArea}>
                 <label>Senha</label>
-                <input />
+                <div className={styles.inputWrapped}>
+                  <input type={showPassword ? 'text' : 'password'} onChange={v => setPassword(v.target.value)} value={password} />
+                  <img onClick={() => setShowPassword(!showPassword)} src={showPassword ? ViewOn : ViewOff} />
+                </div>
               </div>
             </>
           :
@@ -59,12 +73,12 @@ export default function App() {
             <div className={styles.inlineInput}>
               <div className={styles.inputArea}>
                 <label>Primeiro nome</label>
-                <input />
+                <input type="text" onChange={v => setFirstName(v.target.value)} value={firstName} />
               </div>
 
               <div className={styles.inputArea}>
                 <label>Segundo nome</label>
-                <input />
+                <input type="text" onChange={v => setLastName(v.target.value)} value={lastName} />
               </div>
             </div>
 
@@ -77,13 +91,14 @@ export default function App() {
                   style={{borderColor: isValidCpf ? '#afb2b1' : '#ff0000'}} 
                   onBlur={submit} 
                   onChange={v => setCpf(v.target.value)} 
-                  value={cpfNumber} 
+                  value={cpfNumber}
+                  type="text"
                 />
               </div>
               
               <div className={styles.inputArea}>
                 <label>Email</label>
-                <input />
+                <input type="email" onChange={v => setEmail(v.target.value)} value={email} />
               </div>
             </div>
 
@@ -92,12 +107,12 @@ export default function App() {
             <div className={styles.inlineInput}>
               <div className={styles.inputArea}>
                 <label>Senha</label>
-                <input type="password" />
+                <input onChange={v => setPassword(v.target.value)} value={password} type="password" />
               </div>
               
               <div className={styles.inputArea}>
                 <label>Confrimar senha</label>
-                <input type="password" />
+                <input onChange={v => setConfirmPassword(v.target.value)} value={confirmPassword} type="password" />
               </div>
             </div>
           </>
