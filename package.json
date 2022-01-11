@@ -12,7 +12,10 @@
     "react-icons": "^4.3.1",
     "react-scripts": "5.0.0",
     "react-select": "^5.2.1",
+    "recharts": "^2.1.8",
     "sass": "^1.45.1",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.0.4",
     "web-vitals": "^2.1.2"
   },
   "scripts": {

@@ -57,45 +57,96 @@
             }
         }
 
-        .profileButton {
+        .profileButtonArea {
             display: flex;
             align-items: center;
-            cursor: pointer;
+            position: relative;
 
-            &:hover {
-                transition: 250ms;
-
-                .profileImg {
-                    box-shadow: 0px 0px 3px 0px var(--black);
-                }
-
-                span {
-                    color: var(--black);
-                }
-
-                .arrowIcon {
-                    transform: rotate(90deg);
-                }
-            }
-
-            .profileImg {
-                object-fit: cover;
-                border-radius: 5rem;
-                transition: 250ms;
-            }
-
-            span {
-                color: var(--gray-500);
-                font-weight: 600;
-                transition: 250ms;
-                margin: 0 .3rem;
-            }
-
-            .arrowIcon {
+            .profileButton {
                 display: flex;
                 align-items: center;
-                transform: rotate(0);
-                transition: 250ms;
+                cursor: pointer;
+
+                &:hover {
+                    transition: 250ms;
+
+                    .userName {
+                        color: var(--black);
+                    }
+    
+                    .arrowIcon {
+                        transform: rotate(90deg);
+                    }
+                }
+
+                .userName {
+                    color: var(--gray-500);
+                    font-weight: 600;
+                    transition: 250ms;
+                    margin: 0 .3rem;
+                }
+    
+                .arrowIcon {
+                    display: flex;
+                    align-items: center;
+                    transform: rotate(0);
+                    transition: 250ms;
+                }
+            }
+
+            .dropdownMenu {
+                background-color: var(--white);
+                flex-direction: column;
+                position: absolute;
+                top: 2rem;
+                left: -2rem;
+                width: 12rem;
+                padding-top: 1rem;
+
+                .dropdownHeader {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-bottom: 1px solid var(--gray-100);
+                    padding: 0 1rem 1rem 1rem;
+
+                    .profileImg {
+                        object-fit: cover;
+                        border-radius: 1.5rem;
+                        width: 2.5rem;
+                        height: 2.5rem;
+                    }
+
+                    span {
+                        color: var(--black);
+                        font-weight: bold;
+                        margin-left: 1rem;
+                    }
+                }
+
+                .dropdownItem {
+                    background-color: var(--white);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    height: 3rem;
+                    transition: 250ms;
+
+                    &:hover {
+                        background-color: #fafafa;
+                    }
+
+                    img {
+                        width: 1.2rem;
+                        height: 1.2rem;
+                    }
+
+                    span {
+                        color: var(--red);
+                        margin-left: 1rem;
+                    }
+                }
             }
         }
     }

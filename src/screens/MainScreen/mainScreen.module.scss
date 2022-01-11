@@ -17,6 +17,14 @@
             border-radius: .6rem;
             padding: 1rem;
 
+            .account {
+                color: var(--gray-500);
+
+                strong {
+                    color: var(--black);
+                }
+            }
+
             p {
                 color: var(--gray-500);
                 font-size: 1rem;

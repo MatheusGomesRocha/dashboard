@@ -36,6 +36,7 @@ export default function MainScreen () {
                 <h2>Overview</h2>
 
                 <div className={styles.valueItem}>
+                    <span className={styles.account}>Conta: <strong>20225687-9</strong></span>
                     <p>Saldo Total</p>
                     <div>
                         <span className={styles.value}>R$ 35.457,70</span>
