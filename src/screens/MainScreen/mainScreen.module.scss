@@ -1,5 +1,5 @@
 .container {
-    padding: 0 2rem;
+    padding: 0 2rem 2rem 2rem;
 
     .leftContainer {
         margin-top: 1.5rem;
@@ -70,6 +70,81 @@
                     margin-left: 1rem;
                 }
 
+            }
+        }
+
+        .historyArea {
+            background-color: var(--white);
+            width: 40%;
+            border-radius: .6rem;
+            margin-top: 1.5rem;
+
+            .header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 1rem;
+                border-bottom: 1px solid var(--gray-100);
+
+                h2 {
+                    font-size: 1.2rem;
+                }
+
+                .selectTime {
+                    background-color: var(--gray-100);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 6rem;
+                    height: 2rem;
+                    border-radius: 1rem;
+
+                    select {
+                        background-color: transparent;
+                        appearance: none;
+                        border: none;
+                        outline: 0;
+                        width: 6rem;
+                        padding: 0 1rem;
+                        font-weight: 500;
+                    }
+                }
+            }
+
+            .transactionArea {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                overflow: scroll;
+                max-height: 20rem;
+                padding: 0 1rem 1rem 1rem;
+
+                tbody {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+                    margin-top: 1rem;
+
+                    .type {
+                        font-weight: bold;
+                        font-size: 1.1rem;
+                        width: 5rem;
+                    }
+    
+                    .date {
+                        color: var(--gray-800);
+                        text-align: center;
+                        font-size: .9rem;
+                        width: 5rem;
+                    }
+    
+                    .value {
+                        font-weight: bold;
+                        text-align: right;
+                        width: 5rem;
+                    }
+                }
             }
         }
     }
