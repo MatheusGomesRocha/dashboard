@@ -30,20 +30,11 @@ export default function Header () {
                     <div className={styles.notificationIndicator} />
                 </div>
 
-                <div 
-                    onMouseOver={() => setHoverConfig(true)} 
-                    onMouseOut={() => setHoverConfig(false)}
-                    className={styles.defaultButton}
-                >
-                    <BiCog color={hoverConfig ? '#000' : '#a4acb7'} size={25} />
-                </div>
-
                 <div className={styles.flagIconButton}>
                     <img width={25} height={25} className={styles.icon} src={BrazilFlag} />
                 </div>
 
                 <div className={styles.profileButton}>
-                    <img width={40} height={40} className={styles.profileImg} src={Profile} />
                     <span>Matheus Gomes</span>
                     
                     <div className={styles.arrowIcon}>
