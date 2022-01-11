@@ -3,5 +3,74 @@
 
     .leftContainer {
         margin-top: 1.5rem;
+
+        h2 {
+            font-size: 2rem;
+        }
+
+        .valueItem {
+            background-color: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 40%;
+            border-radius: .6rem;
+            padding: 1rem;
+
+            p {
+                color: var(--gray-500);
+                font-size: 1rem;
+            }
+
+            div {
+                display: flex;
+                align-items: center;
+
+                .value {
+                    font-weight: bold;
+                    font-size: 2rem;
+                }
+
+                .valueChange {
+                    margin-left: 1rem;
+                    color: var(--green);
+                }
+            }
+
+            .inlineButton {
+                display: flex;
+                align-items: center;
+                margin-top: .7rem;
+
+                span {
+                    color: var(--white);
+                }
+
+                div {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    transition: 250ms;
+                    height: 2.5rem;
+                    padding: 0 1rem;
+                    border-radius: .4rem;
+
+                    &:hover {
+                        filter: brightness(0.9);
+                    }
+                }
+
+                .depositButton {
+                    background-color: var(--green);
+                }
+
+                .withdrawButton {
+                    background-color: var(--red);
+                    margin-left: 1rem;
+                }
+
+            }
+        }
     }
 }

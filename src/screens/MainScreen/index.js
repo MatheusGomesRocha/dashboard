@@ -8,31 +8,24 @@ export default function MainScreen () {
             <section className={styles.leftContainer}>
                 <h2>Overview</h2>
 
-                <div className={styles.valueArea}>
-                    <div className={styles.valueItem}>
-                        <p>Total Profit</p>
-                        <div>
-                            <span className={styles.value}>R$ 35.457</span>
-                            <span className={styles.percent}>+ 4.85%</span>
-                        </div>
+                <div className={styles.valueItem}>
+                    <p>Saldo Total</p>
+                    <div>
+                        <span className={styles.value}>R$ 35.457,70</span>
+                        <span className={styles.valueChange}>+ 3.55%</span>
                     </div>
 
-                    <div className={styles.valueItem}>
-                        <p>Total Expenses</p>
-                        <div>
-                            <span className={styles.value}>R$ 25.156</span>
-                            <span className={styles.percent}>+ 4.85%</span>
+                    <div className={styles.inlineButton}>
+                        <div className={styles.depositButton}>
+                            <span>Depositar dinheiro</span>
                         </div>
-                    </div>
 
-                    <div className={styles.valueItem}>
-                        <p>New Users</p>
-                        <div>
-                            <span className={styles.value}>2.841</span>
-                            <span className={styles.percent}>- 4.85%</span>
+                        <div className={styles.withdrawButton}>
+                            <span>Retirar dinheiro</span>
                         </div>
                     </div>
                 </div>
+
             </section>
         </div>
     )
