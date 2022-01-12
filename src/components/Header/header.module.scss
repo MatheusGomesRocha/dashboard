@@ -97,6 +97,7 @@
             .dropdownMenu {
                 background-color: var(--white);
                 flex-direction: column;
+                z-index: 999;
                 position: absolute;
                 top: 2rem;
                 left: -2rem;

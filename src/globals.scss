@@ -38,7 +38,7 @@
 
     --light-blue: #5579FC;
     --blue: #0297FF;
-    --dark-blue: #092456;    // #1121ef
+    --dark-blue: #0028f3;    // #1121ef
     --blueish-gray: #a4acb7;
 }
 
@@ -77,19 +77,8 @@ h2 {
 }
 
 li {
-    font-family: 'Architects Daughter', cursive;
+    // font-family: 'Architects Daughter', cursive;
     // font-weight: 100;
-}
-
-.app {
-    display: flex;
-    flex-direction: row;
-    
-    main {
-        flex: 1;
-        overflow-y: scroll;
-        height: 100vh;
-    }
 }
 
 // Italic title Texts

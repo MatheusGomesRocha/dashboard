@@ -17,19 +17,21 @@ export default function Header () {
 
     return(
         <div className={styles.container}>
-            <div className={styles.menuButton}>
+            {/* <div className={styles.menuButton}>
                 <IoMenuSharp color="#000" size={25} />
-            </div>
+            </div> */}
+
+            <h2>Conta bancária</h2>
 
             <section className={styles.rightArea}>
-                <div
+                {/* <div
                     onMouseOver={() => setHoverNotification(true)} 
                     onMouseOut={() => setHoverNotification(false)} 
                     className={styles.defaultButton}
                 >
                     <CgBell color={hoverNotification ? '#000' : '#a4acb7'} size={25} />
                     <div className={styles.notificationIndicator} />
-                </div>
+                </div> */}
 
                 <div className={styles.flagIconButton}>
                     <img width={25} height={25} className={styles.icon} src={BrazilFlag} />

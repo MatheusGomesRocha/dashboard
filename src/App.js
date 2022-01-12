@@ -14,14 +14,9 @@ export default function App() {
   return(
     <div className='app'>
       {/* <Login /> */}
+      <Header />
 
-      <Menu />
-
-      <main>
-        <Header />
-
-        <MainScreen />
-      </main>
+      <MainScreen />
     </div>
   )
 }
