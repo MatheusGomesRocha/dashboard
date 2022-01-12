@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, getIntroOfPage, CartesianGrid } from 'recharts';
 
+import { AiFillCloseCircle } from 'react-icons/ai';
+
 import styles from './mainScreen.module.scss';
 
 const options = [
@@ -40,8 +42,13 @@ const data = [
 
 export default function MainScreen () {
     const [selectOption, setSelectOption] = useState('hoje');
+    const [openDepositModal, setOpenDepositModal] = useState(false);
+    const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
 
-    function CustomTooltip({ payload, label, active }) {
+    const [depositValue, setDepositValue] = useState(0);
+    const [withdrawValue, setWithdrawValue] = useState(0);
+
+    const CustomTooltip = ({ payload, active }) => {
         if (active) {
           return (
             <div className={styles.customTooltip}>
@@ -51,10 +58,61 @@ export default function MainScreen () {
         }
       
         return null;
-      }
+    }
+
+    const ModalHeader = ({ type }) => {
+        return(
+            <section 
+                onClick={type === 'deposit' ? () => setOpenDepositModal(false) : () => setOpenWithdrawModal(false)} 
+                className={styles.closeModal}
+            >
+                <AiFillCloseCircle color="#000" size={25} />
+            </section>
+        )
+    }
 
     return(
         <div className={styles.container}>
+            {openDepositModal ? 
+                <div className={styles.modalContainer}>
+                    <div className={styles.modal}>
+                        <ModalHeader type="deposit" />
+                        <p>Quanto você quer depositar na sua conta?</p>
+
+                        <input 
+                            value={depositValue}
+                            onChange={v => setDepositValue(v.target.value)} 
+                            type="number" 
+                            placeholder="Exemplo: 550.75" 
+                        />
+
+                        <div className={styles.depositButton}>
+                            <span>Depositar</span>
+                        </div>
+                    </div>
+                </div>
+            : null}
+
+            {openWithdrawModal ? 
+                <div className={styles.modalContainer}>
+                    <div className={styles.modal}>
+                        <ModalHeader type="withdraw" />
+
+                        <p>Quanto você quer retirar da sua conta?</p>
+                        <input 
+                            value={withdrawValue} 
+                            onChange={v => setWithdrawValue(v.target.value)} 
+                            type="number" 
+                            placeholder="Exemplo: 550.75" 
+                        />
+                        
+                        <div className={styles.withdrawButton}>
+                            <span>Retirar</span>
+                        </div>
+                    </div>
+                </div>
+            : null}
+
             <section className={styles.leftContainer}>
                 <h2>Overview</h2>
 
@@ -67,11 +125,11 @@ export default function MainScreen () {
                     </div>
 
                     <div className={styles.inlineButton}>
-                        <div className={styles.depositButton}>
+                        <div onClick={() => setOpenDepositModal(true)} className={styles.depositButton}>
                             <span>Depositar dinheiro</span>
                         </div>
 
-                        <div className={styles.withdrawButton}>
+                        <div onClick={() => setOpenWithdrawModal(true)} className={styles.withdrawButton}>
                             <span>Retirar dinheiro</span>
                         </div>
                     </div>
