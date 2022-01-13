@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import Select from 'react-select';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, getIntroOfPage, CartesianGrid } from 'recharts';
+import React, { useState, useEffect } from 'react';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import InputMask from 'react-input-mask';
 
 import { AiFillCloseCircle } from 'react-icons/ai';
+
+import { api } from '../../services/api';
 
 import styles from './mainScreen.module.scss';
 
@@ -49,6 +50,12 @@ export default function MainScreen () {
     const [depositValue, setDepositValue] = useState(0);
     const [withdrawValue, setWithdrawValue] = useState(0);
 
+    const [transactions, setTransactions] = useState([]);
+
+    useEffect(() => {
+        api.get('704542-1/transactions').then((res) => setTransactions(res.data));
+    }, []);
+
     const CustomTooltip = ({ payload, active }) => {
         if (active) {
           return (
@@ -72,6 +79,12 @@ export default function MainScreen () {
         )
     }
 
+    function deposit() {
+        api.post('704542-1/deposit', {
+            value: depositValue
+        })
+    }
+
     return(
         <div className={styles.container}>
             {openDepositModal ? 
@@ -87,7 +100,7 @@ export default function MainScreen () {
                             placeholder="Exemplo: 550.75" 
                         />
 
-                        <div className={styles.depositButton}>
+                        <div onClick={deposit} className={styles.depositButton}>
                             <span>Depositar</span>
                         </div>
                     </div>
@@ -151,24 +164,17 @@ export default function MainScreen () {
                             </div>
 
                             <div className={styles.filterButton}>
-                                
+
                             </div>
                         </div>
-
-                        {/* <Select
-                            options={options}
-                            placeholder='Hoje'
-                            defaultValue={selectOption}
-                            onChange={v => setSelectOption(v)}
-                        /> */}
                     </div>
 
                     <table className={styles.transactionArea}>
-                        {transactionArray.map((item, k) => (
+                        {transactions.map((item, k) => (
                             <tbody key={k}>
-                                <td style={{color: item.type === 'Saque' ? '#CA0808' : '#548C1D'}} className={styles.type}>{item.type}</td>
+                                <td style={{color: item.type === 'withdraw' ? '#CA0808' : '#548C1D'}} className={styles.type}>{item.type === 'withdraw' ? 'Saque' : 'Depósito'}</td>
                                 <td className={styles.date}>{item.date}</td>
-                                <td style={{color: item.type === 'Saque' ? '#CA0808' : '#548C1D'}} className={styles.value}>{item.type === 'Saque' ? '-' : '+'} {item.value}</td>
+                                <td style={{color: item.type === 'withdraw' ? '#CA0808' : '#548C1D'}} className={styles.value}>{item.type === 'withdraw' ? '-' : '+'} R$ {item.value.toFixed(2)}</td>
                             </tbody>
                         ))}
                     </table>
