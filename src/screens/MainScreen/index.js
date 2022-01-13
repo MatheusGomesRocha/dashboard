@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import InputMask from 'react-input-mask';
+import { Oval } from 'react-loader-spinner';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import { AiFillCloseCircle } from 'react-icons/ai';
 
 import { api } from '../../services/api';
+import { LoginContext } from '../../contexts/LoginContext';
 
 import styles from './mainScreen.module.scss';
 
@@ -19,6 +22,7 @@ const data = [
 ];
 
 export default function MainScreen () {
+    const { userAccount } = useContext(LoginContext);
     const [openDepositModal, setOpenDepositModal] = useState(false);
     const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
 
@@ -31,10 +35,19 @@ export default function MainScreen () {
     const [dateFrom, setDateFrom] = useState('');
     const [dateTo, setDateTo] = useState('');
 
+    const [loader, setLoader] = useState(true);
+
     useEffect(() => {
         api.get('704542-1/transactions').then((res) => setTransactions(res.data));
         api.get('704542-1/saldo').then((res) => setSaldo(res.data.saldo));
+        api.get('')
     }, []);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoader(false);
+        }, 1000)
+    }, [loader])
 
     const CustomTooltip = ({ payload, active }) => {
         if (active) {
@@ -65,6 +78,7 @@ export default function MainScreen () {
         }).then((res) => {
             setOpenDepositModal(false);
             setDepositValue(0);
+            setLoader(true);
             api.get('704542-1/transactions').then((res) => setTransactions(res.data));
             api.get('704542-1/saldo').then((res) => setSaldo(res.data.saldo));
         })
@@ -76,6 +90,7 @@ export default function MainScreen () {
         }).then((res) => {
             setOpenWithdrawModal(false);
             setWithdrawValue(0);
+            setLoader(true);
             api.get('704542-1/transactions').then((res) => setTransactions(res.data));
             api.get('704542-1/saldo').then((res) => setSaldo(res.data.saldo));
         })
@@ -86,7 +101,10 @@ export default function MainScreen () {
             api.post('704542-1/transactionsFilter', {
                 from: dateFrom,
                 to: dateTo,
-            }).then((res) => setTransactions(res.data));
+            }).then((res) => {
+                setTransactions(res.data);
+                setLoader(true);
+            });
         }
     }
 
@@ -138,9 +156,16 @@ export default function MainScreen () {
                 <div className={styles.valueItem}>
                     <span className={styles.account}>Conta: <strong>20225687-9</strong></span>
                     <p>Saldo Total</p>
-                    <div>
-                        <span className={styles.value}>R$ {saldo.toFixed(2)}</span>
-                    </div>
+                    
+                    {loader ? 
+                        <div className={styles.loader}>
+                            <Oval type="Oval" color="#000" height={30} width={30} />
+                        </div>
+                        :
+                        <div>
+                            <span className={styles.value}>R$ {saldo.toFixed(2)}</span>
+                        </div>
+                    }
 
                     <div className={styles.inlineButton}>
                         <div onClick={() => setOpenDepositModal(true)} className={styles.depositButton}>
@@ -186,7 +211,12 @@ export default function MainScreen () {
                     </div>
 
                     <table className={styles.transactionArea}>
-                        {transactions.map((item, k) => (
+                        {loader ? 
+                        <div style={{margin: '5rem 0'}} className={styles.loader}>
+                            <Oval type="Oval" color="#000" height={30} width={30} />
+                        </div> 
+                        : 
+                        transactions.map((item, k) => (
                             <tbody key={k}>
                                 <td style={{color: item.type === 'withdraw' ? '#CA0808' : '#548C1D'}} className={styles.type}>{item.type === 'withdraw' ? 'Saque' : 'Depósito'}</td>
                                 <td className={styles.date}>{item.date}</td>
