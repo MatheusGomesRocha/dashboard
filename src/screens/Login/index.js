@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { cpf } from 'cpf-cnpj-validator'; 
 import InputMask from 'react-input-mask';
 
@@ -8,10 +8,13 @@ import ViewOn from '../../assets/icons/view.png';
 import ViewOff from '../../assets/icons/view-off.png';
 
 import { api } from '../../services/api';
+import { LoginContext } from '../../contexts/LoginContext';
 
 // <div>Some Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
 export default function Login() {
+  const { login } = useContext(LoginContext);
+
   const [isValidCpf, setIsValidCpf] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -95,7 +98,7 @@ export default function Login() {
             setErrorMsg('');
           }, 3000);
         } else {
-          console.log(res.data.result);
+          login(res.data.result.account);
         }
       })
     } else {
