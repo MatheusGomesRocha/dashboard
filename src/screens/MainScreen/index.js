@@ -33,7 +33,7 @@ export default function MainScreen () {
 
     useEffect(() => {
         api.get('704542-1/transactions').then((res) => setTransactions(res.data));
-        // api.get('704542-1/saldo').then((res) => setSaldo(res.data.saldo));
+        api.get('704542-1/saldo').then((res) => setSaldo(res.data.saldo));
     }, []);
 
     const CustomTooltip = ({ payload, active }) => {
@@ -65,6 +65,8 @@ export default function MainScreen () {
         }).then((res) => {
             setOpenDepositModal(false);
             setDepositValue(0);
+            api.get('704542-1/transactions').then((res) => setTransactions(res.data));
+            api.get('704542-1/saldo').then((res) => setSaldo(res.data.saldo));
         })
     }
 
@@ -74,6 +76,8 @@ export default function MainScreen () {
         }).then((res) => {
             setOpenWithdrawModal(false);
             setWithdrawValue(0);
+            api.get('704542-1/transactions').then((res) => setTransactions(res.data));
+            api.get('704542-1/saldo').then((res) => setSaldo(res.data.saldo));
         })
     }
 
