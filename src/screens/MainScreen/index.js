@@ -54,7 +54,7 @@ export default function MainScreen () {
 
     useEffect(() => {
         api.get('704542-1/transactions').then((res) => setTransactions(res.data));
-    }, []);
+    }, [deposit, withdraw]);
 
     const CustomTooltip = ({ payload, active }) => {
         if (active) {
@@ -82,6 +82,19 @@ export default function MainScreen () {
     function deposit() {
         api.post('704542-1/deposit', {
             value: depositValue
+        }).then((res) => {
+            setOpenDepositModal(false);
+            setDepositValue(0);
+        })
+        
+    }
+
+    function withdraw() {
+        api.post('704542-1/withdraw', {
+            value: withdrawValue
+        }).then((res) => {
+            setOpenWithdrawModal(false);
+            setWithdrawValue(0);
         })
     }
 
@@ -120,7 +133,7 @@ export default function MainScreen () {
                             placeholder="Exemplo: 550.75" 
                         />
                         
-                        <div className={styles.withdrawButton}>
+                        <div onClick={withdraw} className={styles.withdrawButton}>
                             <span>Retirar</span>
                         </div>
                     </div>
