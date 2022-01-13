@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, getIntroOfPage, CartesianGrid } from 'recharts';
+import InputMask from 'react-input-mask';
 
 import { AiFillCloseCircle } from 'react-icons/ai';
 
@@ -139,12 +140,27 @@ export default function MainScreen () {
                     <div className={styles.header}>
                         <h2>Histórico de transações</h2>
 
-                        <Select
+                        <div className={styles.dateArea}>
+                            <div className={styles.date}>
+                                <span>De:</span>
+                                <InputMask placeholder="01-01-2022" className={styles.input} mask="99-99-9999"></InputMask>
+                            </div>
+                            <div className={styles.date}>
+                                <span>Até:</span>
+                                <InputMask placeholder="02-01-2022" className={styles.input} mask="99-99-9999"></InputMask>
+                            </div>
+
+                            <div className={styles.filterButton}>
+                                
+                            </div>
+                        </div>
+
+                        {/* <Select
                             options={options}
                             placeholder='Hoje'
                             defaultValue={selectOption}
                             onChange={v => setSelectOption(v)}
-                        />
+                        /> */}
                     </div>
 
                     <table className={styles.transactionArea}>
