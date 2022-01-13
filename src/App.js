@@ -22,7 +22,11 @@ export default function App() {
           <MainScreen />
         </>
       : 
-        <Login />
+        <>
+          <Header />
+          <MainScreen />
+        </>
+        // <Login />
       } 
     </div>
   )
