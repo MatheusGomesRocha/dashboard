@@ -107,9 +107,9 @@
                 .dropdownHeader {
                     display: flex;
                     align-items: center;
-                    justify-content: center;
+                    justify-content: space-between;
                     border-bottom: 1px solid var(--gray-100);
-                    padding: 0 1rem 1rem 1rem;
+                    padding: 0 2rem 1rem 2rem;
 
                     .profileImg {
                         object-fit: cover;
@@ -121,7 +121,6 @@
                     span {
                         color: var(--black);
                         font-weight: bold;
-                        margin-left: 1rem;
                     }
                 }
 

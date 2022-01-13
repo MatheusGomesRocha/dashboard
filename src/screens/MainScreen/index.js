@@ -23,6 +23,7 @@ const data = [
 
 export default function MainScreen () {
     const { userAccount } = useContext(LoginContext);
+    
     const [openDepositModal, setOpenDepositModal] = useState(false);
     const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
 
@@ -38,8 +39,8 @@ export default function MainScreen () {
     const [loader, setLoader] = useState(true);
 
     useEffect(() => {
-        api.get('704542-1/transactions').then((res) => setTransactions(res.data));
-        api.get('704542-1/saldo').then((res) => setSaldo(res.data.saldo));
+        api.get(`${userAccount}/transactions`).then((res) => setTransactions(res.data));
+        api.get(`${userAccount}/saldo`).then((res) => setSaldo(res.data.saldo));
         api.get('')
     }, []);
 
@@ -73,32 +74,32 @@ export default function MainScreen () {
     }
 
     function deposit() {
-        api.post('704542-1/deposit', {
+        api.post(`${userAccount}/deposit`, {
             value: depositValue
         }).then((res) => {
             setOpenDepositModal(false);
             setDepositValue(0);
             setLoader(true);
-            api.get('704542-1/transactions').then((res) => setTransactions(res.data));
-            api.get('704542-1/saldo').then((res) => setSaldo(res.data.saldo));
+            api.get(`${userAccount}/transactions`).then((res) => setTransactions(res.data));
+            api.get(`${userAccount}/saldo`).then((res) => setSaldo(res.data.saldo));
         })
     }
 
     function withdraw() {
-        api.post('704542-1/withdraw', {
+        api.post(`${userAccount}/withdraw`, {
             value: withdrawValue
         }).then((res) => {
             setOpenWithdrawModal(false);
             setWithdrawValue(0);
             setLoader(true);
-            api.get('704542-1/transactions').then((res) => setTransactions(res.data));
-            api.get('704542-1/saldo').then((res) => setSaldo(res.data.saldo));
+            api.get(`${userAccount}/transactions`).then((res) => setTransactions(res.data));
+            api.get(`${userAccount}/saldo`).then((res) => setSaldo(res.data.saldo));
         })
     }
 
     function transactionFilter() {
         if(dateFrom && dateTo) {
-            api.post('704542-1/transactionsFilter', {
+            api.post(`${userAccount}/transactionsFilter`, {
                 from: dateFrom,
                 to: dateTo,
             }).then((res) => {
@@ -154,7 +155,7 @@ export default function MainScreen () {
                 <h2>Overview</h2>
 
                 <div className={styles.valueItem}>
-                    <span className={styles.account}>Conta: <strong>20225687-9</strong></span>
+                    <span className={styles.account}>Conta: <strong>{userAccount}</strong></span>
                     <p>Saldo Total</p>
                     
                     {loader ? 

@@ -98,7 +98,7 @@ export default function Login() {
             setErrorMsg('');
           }, 3000);
         } else {
-          login(res.data.result.account);
+          login(res.data.result.account, res.data.result.name, res.data.result.avatar);
         }
       })
     } else {
