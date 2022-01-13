@@ -17,6 +17,17 @@
             margin-bottom: 1rem;
             font-size: 2rem;
         }
+
+        .errorMsg {
+            background-color: var(--red);
+            padding: .5rem 1rem;
+            border-radius: .5rem;
+            width: 15rem;
+
+            span {
+                color: var(--white);
+            }
+        }
     
         .inlineInput {
             display: flex;

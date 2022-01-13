@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { cpf } from 'cpf-cnpj-validator'; 
+import InputMask from 'react-input-mask';
 
 import styles from './login.module.scss';
 
 import ViewOn from '../../assets/icons/view.png';
 import ViewOff from '../../assets/icons/view-off.png';
+
+import { api } from '../../services/api';
 
 // <div>Some Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
@@ -21,10 +24,14 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  function submit() { 
-    if(cpf.isValid(cpfNumber)) {
-      setCpf(cpf.format(cpfNumber));
-      setIsValidCpf(true)
+  const [errorMsg, setErrorMsg] = useState('');
+
+  function validCpf() { 
+    const formatedCpfNumber = cpfNumber.replace(/[^0-9]/g, '')
+
+    if(cpf.isValid(formatedCpfNumber)) {
+      setIsValidCpf(true);
+      setCpf(formatedCpfNumber);
     } else {
       setIsValidCpf(false);
     }
@@ -42,21 +49,63 @@ export default function Login() {
     setShowConfirmPassword(false);
   }
 
+  function submitData() {
+    if(isValidCpf) {
+      if(firstName && lastName && cpfNumber && email && password && confirmPassword) {
+        if(password === confirmPassword) {
+          api.post('createUser', {
+            name: firstName + ' ' + lastName,
+            email: email,
+            cpf: cpfNumber,
+            password: password
+          }).then((res) => setErrorMsg(res.data.error));
+        } else {
+          setErrorMsg('Senhas não coincidem');
+
+          setTimeout(() => {
+            setErrorMsg('');
+          }, 3000)
+        }
+      } else {
+        setErrorMsg('Preencha todos os campos')
+
+        setTimeout(() => {
+          setErrorMsg('');
+        }, 3000)
+      }
+    } else {
+      setErrorMsg('CPF inválido');
+
+      setTimeout(() => {
+        setErrorMsg('');
+      }, 3000)
+    }
+  }
+
   return(
     <div className={styles.container}>
       <form>
           <h2>{isLogin ? 'Acesse sua conta' : 'Criar nova conta'}</h2>
 
+          {errorMsg ? 
+            <div className={styles.errorMsg}>
+              <span>{errorMsg}</span>
+            </div>
+          : null
+          }
+
           {isLogin ? 
             <>
               <div style={{width: '30rem'}} className={styles.inputArea}>
                 <label>CPF</label>
-                <input 
-                  style={{borderColor: isValidCpf ? '#afb2b1' : '#ff0000'}} 
-                  onBlur={submit} 
+                <InputMask 
+                  value={cpfNumber}
                   onChange={v => setCpf(v.target.value)} 
-                  value={cpfNumber}  
-                />
+                  onBlur={validCpf} 
+                  className={styles.input} 
+                  style={{borderColor: isValidCpf ? '#afb2b1' : '#ff0000'}} 
+                  mask="999.999.999-99"
+                ></InputMask>
               </div>
 
               <div style={{marginTop: '1rem', width: '30rem'}} className={styles.inputArea}>
@@ -86,18 +135,19 @@ export default function Login() {
             <div className={styles.inlineInput}>
               <div className={styles.inputArea}>
                 <label>CPF</label>
-                <input 
-                  style={{borderColor: isValidCpf ? '#afb2b1' : '#ff0000'}} 
-                  onBlur={submit} 
-                  onChange={v => setCpf(v.target.value)} 
+                <InputMask 
                   value={cpfNumber}
-                  type="text"
-                />
+                  onChange={v => setCpf(v.target.value)} 
+                  onBlur={validCpf} 
+                  className={styles.input} 
+                  style={{borderColor: isValidCpf ? '#afb2b1' : '#ff0000'}} 
+                  mask="999.999.999-99"
+                ></InputMask>
               </div>
               
               <div className={styles.inputArea}>
                 <label>Email</label>
-                <input type="email" onChange={v => setEmail(v.target.value)} value={email} />
+                <input onChange={v => setEmail(v.target.value)} value={email} />
               </div>
             </div>
 
@@ -123,7 +173,7 @@ export default function Login() {
           </>
           }
 
-          <div style={{width: isLogin ? '30rem' : '40%'}} onClick={submit} className={styles.submit}>
+          <div onClick={submitData} style={{width: isLogin ? '30rem' : '40%'}} className={styles.submit}>
             <span>{isLogin ? 'Login' : 'Criar conta'}</span>
           </div>
 

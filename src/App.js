@@ -13,10 +13,10 @@ import Login from './screens/Login';
 export default function App() {
   return(
     <div className='app'>
-      {/* <Login /> */}
-      <Header />
+      <Login />
+      {/* <Header />
 
-      <MainScreen />
+      <MainScreen /> */}
     </div>
   )
 }
