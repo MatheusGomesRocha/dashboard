@@ -20,10 +20,11 @@
 
         .errorMsg {
             background-color: var(--red);
+            width: 15rem;
             padding: .5rem 1rem;
             border-radius: .5rem;
-            width: 15rem;
-
+            margin-bottom: 1rem;
+            
             span {
                 color: var(--white);
             }

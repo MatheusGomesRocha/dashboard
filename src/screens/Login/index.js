@@ -39,6 +39,7 @@ export default function Login() {
 
   function changeForm() {
     setIsLogin(!isLogin);
+    setErrorMsg('');
     setCpf('');
     setFirstName('');
     setLastName('');
@@ -49,7 +50,7 @@ export default function Login() {
     setShowConfirmPassword(false);
   }
 
-  function submitData() {
+  function submitRegister() {
     if(isValidCpf) {
       if(firstName && lastName && cpfNumber && email && password && confirmPassword) {
         if(password === confirmPassword) {
@@ -79,6 +80,29 @@ export default function Login() {
       setTimeout(() => {
         setErrorMsg('');
       }, 3000)
+    }
+  }
+
+  function submitLogin() {
+    if(cpfNumber && password) {
+      api.post('login', {
+        cpf: cpfNumber,
+        password: password
+      }).then((res) => {
+        if(res.data.error) {
+          setErrorMsg('Dados incorretos');
+          setTimeout(() => {
+            setErrorMsg('');
+          }, 3000);
+        } else {
+          console.log(res.data.result);
+        }
+      })
+    } else {
+      setErrorMsg('Preencha todos os campos');
+      setTimeout(() => {
+        setErrorMsg('');
+      }, 3000);
     }
   }
 
@@ -173,7 +197,7 @@ export default function Login() {
           </>
           }
 
-          <div onClick={submitData} style={{width: isLogin ? '30rem' : '40%'}} className={styles.submit}>
+          <div onClick={isLogin ? submitLogin : submitRegister} style={{width: isLogin ? '30rem' : '40%'}} className={styles.submit}>
             <span>{isLogin ? 'Login' : 'Criar conta'}</span>
           </div>
 
