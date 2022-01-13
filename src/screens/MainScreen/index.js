@@ -8,30 +8,6 @@ import { api } from '../../services/api';
 
 import styles from './mainScreen.module.scss';
 
-const options = [
-    { value: 'hoje', label: 'Hoje'},
-    { value: 'ontem', label: 'Ontem'},
-    { value: '3_dias', label: '3 dias'},
-    { value: 'semana', label: 'Semana' },
-    { value: 'mês', label: '1 Mês' },
-    { value: '3_meses', label: '3 meses' },
-    { value: 'ano', label: '1 Ano' },
-];
-
-const transactionArray = [
-    {id: 1, type: 'Depósito', date: '12 Dez 2021', value: '14.05'},
-    {id: 2, type: 'Saque', date: '12 Dez 2021', value: '14.05'},
-    {id: 3, type: 'Saque', date: '12 Dez 2021', value: '14.05'},
-    {id: 4, type: 'Depósito', date: '12 Dez 2021', value: '14.05'},
-    {id: 5, type: 'Depósito', date: '12 Dez 2021', value: '14.05'},
-    {id: 6, type: 'Saque', date: '12 Dez 2021', value: '14.05'},
-    {id: 7, type: 'Saque', date: '12 Dez 2021', value: '14.05'},
-    {id: 8, type: 'Saque', date: '12 Dez 2021', value: '14.05'},
-    {id: 9, type: 'Saque', date: '12 Dez 2021', value: '14.05'},
-    {id: 10, type: 'Saque', date: '12 Dez 2021', value: '14.05'},
-    {id: 11, type: 'Saque', date: '12 Dez 2021', value: '14.05'},
-];
-
 const data = [
     {name: '22/12', uv: 400, pv: 2400, amt: 2400, amt: 2400},
     {name: '23/12', uv: 200, pv: 2400, amt: 2400, amt: 2400},
@@ -43,7 +19,6 @@ const data = [
 ];
 
 export default function MainScreen () {
-    const [selectOption, setSelectOption] = useState('hoje');
     const [openDepositModal, setOpenDepositModal] = useState(false);
     const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
 
@@ -51,10 +26,15 @@ export default function MainScreen () {
     const [withdrawValue, setWithdrawValue] = useState(0);
 
     const [transactions, setTransactions] = useState([]);
+    const [saldo, setSaldo] = useState(0);
+
+    const [dateFrom, setDateFrom] = useState('');
+    const [dateTo, setDateTo] = useState('');
 
     useEffect(() => {
         api.get('704542-1/transactions').then((res) => setTransactions(res.data));
-    }, [deposit, withdraw]);
+        // api.get('704542-1/saldo').then((res) => setSaldo(res.data.saldo));
+    }, []);
 
     const CustomTooltip = ({ payload, active }) => {
         if (active) {
@@ -86,7 +66,6 @@ export default function MainScreen () {
             setOpenDepositModal(false);
             setDepositValue(0);
         })
-        
     }
 
     function withdraw() {
@@ -96,6 +75,15 @@ export default function MainScreen () {
             setOpenWithdrawModal(false);
             setWithdrawValue(0);
         })
+    }
+
+    function transactionFilter() {
+        if(dateFrom && dateTo) {
+            api.post('704542-1/transactionsFilter', {
+                from: dateFrom,
+                to: dateTo,
+            }).then((res) => setTransactions(res.data));
+        }
     }
 
     return(
@@ -147,8 +135,7 @@ export default function MainScreen () {
                     <span className={styles.account}>Conta: <strong>20225687-9</strong></span>
                     <p>Saldo Total</p>
                     <div>
-                        <span className={styles.value}>R$ 35.457,70</span>
-                        <span className={styles.valueChange}>+ 3.55%</span>
+                        <span className={styles.value}>R$ {saldo.toFixed(2)}</span>
                     </div>
 
                     <div className={styles.inlineButton}>
@@ -169,14 +156,26 @@ export default function MainScreen () {
                         <div className={styles.dateArea}>
                             <div className={styles.date}>
                                 <span>De:</span>
-                                <InputMask placeholder="01-01-2022" className={styles.input} mask="99-99-9999"></InputMask>
+                                <InputMask 
+                                    value={dateFrom} 
+                                    onChange={v => setDateFrom(v.target.value)} 
+                                    placeholder="01-01-2022" 
+                                    className={styles.input} 
+                                    mask="99-99-9999"
+                                ></InputMask>
                             </div>
                             <div className={styles.date}>
                                 <span>Até:</span>
-                                <InputMask placeholder="02-01-2022" className={styles.input} mask="99-99-9999"></InputMask>
+                                <InputMask
+                                    value={dateTo} 
+                                    onChange={v => setDateTo(v.target.value)} 
+                                    placeholder="02-01-2022" 
+                                    className={styles.input} 
+                                    mask="99-99-9999"
+                                ></InputMask>
                             </div>
 
-                            <div className={styles.filterButton}>
+                            <div onClick={transactionFilter} className={styles.filterButton}>
 
                             </div>
                         </div>
