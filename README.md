@@ -11,6 +11,8 @@ Dashboard feito para que o usuário possa organizar seu dinheiro, podendo fazer 
 
 <img src="public/modal.png" width="600px" height="300px">
 
+<img src="public/delete.png" width="600px" height="300px">
+
 <img src="public/cadastro.png" width="600px" height="300px">
 
 <img src="public/login.png" width="600px" height="300px">
@@ -25,6 +27,7 @@ Dashboard feito para que o usuário possa organizar seu dinheiro, podendo fazer 
 - Histórico de depósitos e saques
 - Filtrar histórico entre datas, exemplo: Ver o histórico entre os dias 12-01-2022 até 14-01-2022, todas as ações realizadas entre esse período serão retornadas e mostradas no histórico
 - Histórico de saldo diário em um gráfico para ver a evolução entre os ultimos 6 dias.
+- Deletar alguma linha do histórico de transações, (saldo não é alterado).
 - A cada depósito ou saque realizado, o Saldo, Histórico e o Gráfico são atualizados automaticamentes para retornar as novas informações
 
 -- --
