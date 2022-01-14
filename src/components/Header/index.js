@@ -1,13 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 
-import { IoMenuSharp } from 'react-icons/io5';
-import { CgBell } from 'react-icons/cg';
-import { BiCog } from 'react-icons/bi';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 
 import BrazilFlag from '../../assets/icons/brazil.png';     // Icons
 import Logout from '../../assets/icons/logout.png';     // Icons
-import Profile from '../../assets/images/profile.jpeg';     // Images
+
+import { FaUserCircle } from 'react-icons/fa';
+import { AiFillCamera } from 'react-icons/ai';
 
 import { LoginContext } from '../../contexts/LoginContext';
 
@@ -16,8 +15,8 @@ import styles from './header.module.scss';
 export default function Header () {
     const { userAccount, userName, userAvatar, logout } = useContext(LoginContext);
 
-    const [hoverNotification, setHoverNotification] = useState(false);
     const [openDropdown, setOpenDropdown] = useState(false);
+    const [openAvatarModal, setOpenAvatarModal] = useState(false);
 
     return(
         <div className={styles.container}>
@@ -52,13 +51,10 @@ export default function Header () {
 
                     <div style={{display: openDropdown ? 'flex' : 'none'}} className={styles.dropdownMenu}>
                         <div className={styles.dropdownHeader}>
-                            <img src={Profile} className={styles.profileImg} />
-                            <span>{userAccount}</span>
-                        </div>
-
-                        <div onClick={logout} className={styles.dropdownItem}>
-                            <img src={Logout} />
-                            <span>Desconectar</span>
+                            <div onClick={logout} className={styles.dropdownItem}>
+                                <img src={Logout} />
+                                <span>Desconectar</span>
+                            </div>
                         </div>
                     </div>
                 </div>

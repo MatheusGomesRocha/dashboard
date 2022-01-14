@@ -5,24 +5,17 @@ import { Oval } from 'react-loader-spinner';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import { AiFillCloseCircle } from 'react-icons/ai';
+import { BiSearch } from 'react-icons/bi';
 
 import { api } from '../../services/api';
 import { LoginContext } from '../../contexts/LoginContext';
 
 import styles from './mainScreen.module.scss';
 
-const data = [
-    {name: '22/12', uv: 400, pv: 2400, amt: 2400, amt: 2400},
-    {name: '23/12', uv: 200, pv: 2400, amt: 2400, amt: 2400},
-    {name: '24/12', uv: 500, pv: 2400, amt: 2400, amt: 2400},
-    {name: '25/12', uv: 350.70, pv: 2400, amt: 2400, amt: 2400},
-    {name: '26/12', uv: 350.70, pv: 2400, amt: 2400, amt: 2400},
-    {name: '27/12', uv: 350.70, pv: 2400, amt: 2400, amt: 2400},
-    {name: '28/12', uv: 1950, pv: 2400, amt: 2400, amt: 2400},
-];
-
 export default function MainScreen () {
     const { userAccount } = useContext(LoginContext);
+    const date = new Date();
+    const yesterday = new Date(Date.now() - 86400000);
     
     const [openDepositModal, setOpenDepositModal] = useState(false);
     const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
@@ -38,16 +31,42 @@ export default function MainScreen () {
 
     const [loader, setLoader] = useState(true);
 
+    const [todayValue, setTodayValue] = useState(0);
+    const [yesterdayValue, setYesterdayValue] = useState(0);
+    const [twoDaysValue, setTwoDaysValue] = useState(0);
+    const [threeDaysValue, setThreeDaysValue] = useState(0);
+    const [fourDaysValue, setFourDaysValue] = useState(0);
+    const [fiveDaysValue, setFiveDaysValue] = useState(0);
+    const [sixDaysValue, setSixDaysValue] = useState(0);
+
     useEffect(() => {
         api.get(`${userAccount}/transactions`).then((res) => setTransactions(res.data));
         api.get(`${userAccount}/saldo`).then((res) => setSaldo(res.data.saldo));
-        api.get('')
+        api.get(`${userAccount}/balanceHistory`).then((res) => {
+            setTodayValue(res.data.today);
+            setYesterdayValue(res.data.yesterday);
+            setTwoDaysValue(res.data.twoDays);
+            setThreeDaysValue(res.data.threeDays);
+            setFourDaysValue(res.data.fourDays);
+            setFiveDaysValue(res.data.fiveDays);
+            setSixDaysValue(res.data.sixDays);
+        });
     }, []);
+
+    const data = [
+        {name: new Date(Date.now()), uv: todayValue, pv: 2400, amt: 2400, amt: 2400},
+        {name: new Date(Date.now() - 86400000), uv: yesterdayValue, pv: 2400, amt: 2400, amt: 2400},
+        {name: '23/12', uv: twoDaysValue, pv: 2400, amt: 2400, amt: 2400},
+        {name: '24/12', uv: threeDaysValue, pv: 2400, amt: 2400, amt: 2400},
+        {name: '25/12', uv: fourDaysValue, pv: 2400, amt: 2400, amt: 2400},
+        {name: '26/12', uv: fiveDaysValue, pv: 2400, amt: 2400, amt: 2400},
+        {name: '27/12', uv: sixDaysValue, pv: 2400, amt: 2400, amt: 2400},
+    ];
 
     useEffect(() => {
         setTimeout(() => {
             setLoader(false);
-        }, 1000)
+        }, 1500)
     }, [loader])
 
     const CustomTooltip = ({ payload, active }) => {
@@ -206,7 +225,7 @@ export default function MainScreen () {
                             </div>
 
                             <div onClick={transactionFilter} className={styles.filterButton}>
-
+                                <BiSearch color="#000" size={20} />
                             </div>
                         </div>
                     </div>
