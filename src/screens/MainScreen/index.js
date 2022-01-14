@@ -141,7 +141,7 @@ export default function MainScreen () {
         setTimeout(() => {
             setLoader(false);
         }, 1500)
-    }, [loader])
+    }, [loader]);
 
     const CustomTooltip = ({ payload, active }) => {
         if (active) {
@@ -175,6 +175,9 @@ export default function MainScreen () {
             setLoader(true);
             api.get(`${userAccount}/transactions`).then((res) => setTransactions(res.data));
             api.get(`${userAccount}/saldo`).then((res) => setSaldo(res.data.saldo));
+            api.get(`${userAccount}/balanceHistory`).then((res) => {
+                setTodayValue(res.data.today);
+            });
         })
     }
 
@@ -187,6 +190,9 @@ export default function MainScreen () {
             setLoader(true);
             api.get(`${userAccount}/transactions`).then((res) => setTransactions(res.data));
             api.get(`${userAccount}/saldo`).then((res) => setSaldo(res.data.saldo));
+            api.get(`${userAccount}/balanceHistory`).then((res) => {
+                setTodayValue(res.data.today);
+            });
         })
     }
 
@@ -324,13 +330,19 @@ export default function MainScreen () {
             <section className={styles.rightContainer}>
                 <h2>Histórico do saldo</h2>
 
-                <BarChart style={{marginTop: '.5rem'}} width={500} height={300} data={data}>
-                    <XAxis dataKey="name" stroke="#000" />
-                    <YAxis />
-                    <Tooltip content={<CustomTooltip />} />
-                    <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-                    <Bar dataKey="uv" fill="#0028f3" barSize={30} />
-                </BarChart>
+                {loader ? 
+                    <div className={styles.loader}>
+                        <Oval type="Oval" color="#000" height={30} width={30} />
+                    </div>
+                    :
+                    <BarChart style={{marginTop: '.5rem'}} width={600} height={400} data={data}>
+                        <XAxis dataKey="name" stroke="#000" />
+                        <YAxis />
+                        <Tooltip content={<CustomTooltip />} />
+                        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+                        <Bar dataKey="uv" fill="#0028f3" barSize={30} />
+                    </BarChart>
+                }
             </section>
         </div>
     )
