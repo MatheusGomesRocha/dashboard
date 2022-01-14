@@ -14,8 +14,6 @@ import styles from './mainScreen.module.scss';
 
 export default function MainScreen () {
     const { userAccount } = useContext(LoginContext);
-    const date = new Date();
-    const yesterday = new Date(Date.now() - 86400000);
     
     const [openDepositModal, setOpenDepositModal] = useState(false);
     const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
@@ -53,14 +51,90 @@ export default function MainScreen () {
         });
     }, []);
 
+    var hoje = new Date();
+
+    var today = new Date(hoje.getTime());
+    var yesterday = new Date(hoje.getTime());
+    var twoDays = new Date(hoje.getTime());
+    var threeDays = new Date(hoje.getTime());
+    var fourDays = new Date(hoje.getTime());
+    var fiveDays = new Date(hoje.getTime());
+    var sixDays = new Date(hoje.getTime());
+    
+    today.setDate(hoje.getDate());
+    yesterday.setDate(hoje.getDate() - 1);
+    twoDays.setDate(hoje.getDate() - 2);
+    threeDays.setDate(hoje.getDate() - 3);
+    fourDays.setDate(hoje.getDate() - 4);
+    fiveDays.setDate(hoje.getDate() - 5);
+    sixDays.setDate(hoje.getDate() - 6);
+
+    var dd = today.getDate();
+    var mm = today.getMonth()+1;
+
+    var dd1 = yesterday.getDate();
+    var mm1 = yesterday.getMonth()+1;
+
+    var dd2 = twoDays.getDate();
+    var mm2 = twoDays.getMonth()+1;
+
+    var dd3 = threeDays.getDate();
+    var mm3 = threeDays.getMonth()+1;
+
+    var dd4 = fourDays.getDate();
+    var mm4 = fourDays.getMonth()+1;
+
+    var dd5 = fiveDays.getDate();
+    var mm5 = fiveDays.getMonth()+1;
+
+    var dd6 = sixDays.getDate();
+    var mm6 = sixDays.getMonth()+1;
+    
+    if(dd<10) {
+        dd='0'+dd;
+    } if(mm<10) {
+        mm='0'+mm;
+    } 
+
+    if(dd1<10) {
+        dd1='0'+dd1;
+    } if(mm1<10) {
+        mm1='0'+mm1;
+    } 
+    if(dd2<10) {
+        dd2='0'+dd2;
+    } if(mm2<10) {
+        mm2='0'+mm2;
+    } 
+    if(dd3<10) {
+        dd3='0'+dd3;
+    } if(mm3<10) {
+        mm3='0'+mm3;
+    } 
+    if(dd4<10) {
+        dd4='0'+dd4;
+    } if(mm4<10) {
+        mm4='0'+mm4;
+    } 
+    if(dd5<10) {
+        dd5='0'+dd5;
+    } if(mm5<10) {
+        mm5='0'+mm5;
+    } 
+    if(dd6<10) {
+        dd6='0'+dd6;
+    } if(mm6<10) {
+        mm6='0'+mm6;
+    } 
+
     const data = [
-        {name: new Date(Date.now()), uv: todayValue, pv: 2400, amt: 2400, amt: 2400},
-        {name: new Date(Date.now() - 86400000), uv: yesterdayValue, pv: 2400, amt: 2400, amt: 2400},
-        {name: '23/12', uv: twoDaysValue, pv: 2400, amt: 2400, amt: 2400},
-        {name: '24/12', uv: threeDaysValue, pv: 2400, amt: 2400, amt: 2400},
-        {name: '25/12', uv: fourDaysValue, pv: 2400, amt: 2400, amt: 2400},
-        {name: '26/12', uv: fiveDaysValue, pv: 2400, amt: 2400, amt: 2400},
-        {name: '27/12', uv: sixDaysValue, pv: 2400, amt: 2400, amt: 2400},
+        {name: dd + '/' + mm, uv: todayValue, pv: 2400, amt: 2400, amt: 2400},
+        {name: dd1 + '/' + mm1, uv: yesterdayValue, pv: 2400, amt: 2400, amt: 2400},
+        {name: dd2 + '/' + mm2, uv: twoDaysValue, pv: 2400, amt: 2400, amt: 2400},
+        {name: dd3 + '/' + mm3, uv: threeDaysValue, pv: 2400, amt: 2400, amt: 2400},
+        {name: dd4 + '/' + mm4, uv: fourDaysValue, pv: 2400, amt: 2400, amt: 2400},
+        {name: dd5 + '/' + mm5, uv: fiveDaysValue, pv: 2400, amt: 2400, amt: 2400},
+        {name: dd6 + '/' + mm6, uv: sixDaysValue, pv: 2400, amt: 2400, amt: 2400},
     ];
 
     useEffect(() => {
