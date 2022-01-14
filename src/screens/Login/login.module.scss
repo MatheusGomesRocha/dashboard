@@ -4,13 +4,11 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    width: 100%;
 
     form {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        height: 100vh;
+        align-self: center;
         padding: 0 18%;
 
         h2 {
@@ -95,7 +93,6 @@
             cursor: pointer;
             transition: 250ms;
             height: 2.5rem;
-            width: 40%;
             border-radius: .5rem;
             margin-top: 1rem;
 
@@ -127,6 +124,22 @@
                 &:hover {
                     filter: brightness(0.8);
                 }
+            }
+        }
+    }
+}
+
+@media(max-width: 800px) {
+    .container {
+        form {
+            .inlineInput {
+                flex-direction: column;
+                margin-top: .7rem;
+                gap: 1rem;
+            }
+
+            .goToLogin {
+                flex-direction: column;
             }
         }
     }

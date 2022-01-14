@@ -3,6 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import InputMask from 'react-input-mask';
 import { Oval } from 'react-loader-spinner';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { useMediaQuery } from 'react-responsive'
 
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { BiSearch } from 'react-icons/bi';
@@ -13,6 +14,8 @@ import { LoginContext } from '../../contexts/LoginContext';
 import styles from './mainScreen.module.scss';
 
 export default function MainScreen () {
+    const isSmallMobile = useMediaQuery({ query: '(max-width: 500px)' })
+
     const { userAccount } = useContext(LoginContext);
     
     const [openDepositModal, setOpenDepositModal] = useState(false);
@@ -35,7 +38,6 @@ export default function MainScreen () {
     const [threeDaysValue, setThreeDaysValue] = useState(0);
     const [fourDaysValue, setFourDaysValue] = useState(0);
     const [fiveDaysValue, setFiveDaysValue] = useState(0);
-    const [sixDaysValue, setSixDaysValue] = useState(0);
 
     useEffect(() => {
         api.get(`${userAccount}/transactions`).then((res) => setTransactions(res.data));
@@ -47,7 +49,6 @@ export default function MainScreen () {
             setThreeDaysValue(res.data.threeDays);
             setFourDaysValue(res.data.fourDays);
             setFiveDaysValue(res.data.fiveDays);
-            setSixDaysValue(res.data.sixDays);
         });
     }, []);
 
@@ -59,7 +60,6 @@ export default function MainScreen () {
     var threeDays = new Date(hoje.getTime());
     var fourDays = new Date(hoje.getTime());
     var fiveDays = new Date(hoje.getTime());
-    var sixDays = new Date(hoje.getTime());
     
     today.setDate(hoje.getDate());
     yesterday.setDate(hoje.getDate() - 1);
@@ -67,7 +67,6 @@ export default function MainScreen () {
     threeDays.setDate(hoje.getDate() - 3);
     fourDays.setDate(hoje.getDate() - 4);
     fiveDays.setDate(hoje.getDate() - 5);
-    sixDays.setDate(hoje.getDate() - 6);
 
     var dd = today.getDate();
     var mm = today.getMonth()+1;
@@ -87,9 +86,6 @@ export default function MainScreen () {
     var dd5 = fiveDays.getDate();
     var mm5 = fiveDays.getMonth()+1;
 
-    var dd6 = sixDays.getDate();
-    var mm6 = sixDays.getMonth()+1;
-    
     if(dd<10) {
         dd='0'+dd;
     } if(mm<10) {
@@ -121,11 +117,6 @@ export default function MainScreen () {
     } if(mm5<10) {
         mm5='0'+mm5;
     } 
-    if(dd6<10) {
-        dd6='0'+dd6;
-    } if(mm6<10) {
-        mm6='0'+mm6;
-    } 
 
     const data = [
         {name: dd + '/' + mm, uv: todayValue, pv: 2400, amt: 2400, amt: 2400},
@@ -134,7 +125,6 @@ export default function MainScreen () {
         {name: dd3 + '/' + mm3, uv: threeDaysValue, pv: 2400, amt: 2400, amt: 2400},
         {name: dd4 + '/' + mm4, uv: fourDaysValue, pv: 2400, amt: 2400, amt: 2400},
         {name: dd5 + '/' + mm5, uv: fiveDaysValue, pv: 2400, amt: 2400, amt: 2400},
-        {name: dd6 + '/' + mm6, uv: sixDaysValue, pv: 2400, amt: 2400, amt: 2400},
     ];
 
     useEffect(() => {
@@ -335,12 +325,12 @@ export default function MainScreen () {
                         <Oval type="Oval" color="#000" height={30} width={30} />
                     </div>
                     :
-                    <BarChart style={{marginTop: '.5rem'}} width={600} height={400} data={data}>
+                    <BarChart style={{marginTop: '1rem', marginLeft: 0, padding: 0}} width={isSmallMobile ? 350 : 500} height={400} data={data}>
                         <XAxis dataKey="name" stroke="#000" />
                         <YAxis />
                         <Tooltip content={<CustomTooltip />} />
                         <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-                        <Bar dataKey="uv" fill="#0028f3" barSize={30} />
+                        <Bar dataKey="uv" fill="#0028f3" barSize={25} />
                     </BarChart>
                 }
             </section>

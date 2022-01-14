@@ -42,11 +42,6 @@
                     font-weight: bold;
                     font-size: 2rem;
                 }
-
-                .valueChange {
-                    margin-left: 1rem;
-                    color: var(--green);
-                }
             }
 
             .inlineButton {
@@ -139,26 +134,6 @@
                         }
                     }
                 }
-
-                .selectTime {
-                    background-color: var(--gray-100);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 6rem;
-                    height: 2rem;
-                    border-radius: 1rem;
-
-                    select {
-                        background-color: transparent;
-                        appearance: none;
-                        border: none;
-                        outline: 0;
-                        width: 6rem;
-                        padding: 0 1rem;
-                        font-weight: 500;
-                    }
-                }
             }
 
             .transactionArea {
@@ -166,8 +141,9 @@
                 flex-direction: column;
                 align-items: center;
                 overflow: scroll;
-                max-height: 20rem;
+                max-height: 35rem;
                 padding: 0 1rem 1rem 1rem;
+                margin-bottom: 2rem;
 
                 tbody {
                     display: flex;
@@ -202,12 +178,11 @@
     .rightContainer {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        margin: 2rem 1rem 0 0;
-        width: 40%;
+        margin-top: 2rem;
         
         h2 {
             font-size: 2rem;
+            text-align: center;
         }
 
         .customTooltip {
@@ -227,7 +202,8 @@
         align-items: center;
         justify-content: center;
         z-index: 999;
-        position: absolute;
+        position: fixed;
+        top: 0;
         width: 100%;
         height: 100vh;
         padding: 0;
@@ -296,5 +272,102 @@
 
     .loader {
         margin: .7rem 0;
+    }
+}
+
+@media(max-width: 500px) {
+    .container {
+        padding: 0;
+        display: block;
+        
+        .leftContainer {
+            .valueItem {
+                .inlineButton {
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+
+                    div {
+                        width: 100%;
+                    }
+
+                    .withdrawButton {
+                        margin: .7rem 0 0 0;
+                    }
+                }
+            }
+
+            .historyArea {
+                .header {
+                    flex-direction: column;
+
+                    .dateArea {
+                        flex-direction: column;
+                        margin-top: 1.5rem;
+                    }
+                }
+            }
+        }
+
+        .rightContainer {
+            display: block;
+            width: auto;
+            margin: 0;
+
+            h2 {
+                text-align: center;
+            }
+        }
+    }
+}
+
+@media(max-width: 900px) {
+    .container {
+        .leftContainer {
+            .historyArea {
+                .header {
+                    flex-direction: column;
+
+                    .dateArea {
+                        margin-top: 1.5rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media(max-width: 1500px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+
+        .leftContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0;
+
+            .valueItem {
+                margin-top: 1rem;
+            }
+        }
+
+        .rightContainer {
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0 4rem 0;
+        }
+    }
+}
+
+@media(min-width: 1900px) {
+    .container {
+        padding: 0 15rem;
     }
 }

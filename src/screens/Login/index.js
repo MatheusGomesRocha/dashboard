@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { cpf } from 'cpf-cnpj-validator'; 
 import InputMask from 'react-input-mask';
+import { useMediaQuery } from 'react-responsive'
 
 import styles from './login.module.scss';
 
@@ -13,6 +14,8 @@ import { LoginContext } from '../../contexts/LoginContext';
 // <div>Some Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
 export default function Login() {
+  const isMobile = useMediaQuery({ query: '(max-width: 800px)' })
+
   const { login } = useContext(LoginContext);
 
   const [isValidCpf, setIsValidCpf] = useState(true);
@@ -123,7 +126,7 @@ export default function Login() {
 
           {isLogin ? 
             <>
-              <div style={{width: '30rem'}} className={styles.inputArea}>
+              <div style={{width: isMobile ? '100%' : '30rem'}} className={styles.inputArea}>
                 <label>CPF</label>
                 <InputMask 
                   value={cpfNumber}
@@ -135,7 +138,7 @@ export default function Login() {
                 ></InputMask>
               </div>
 
-              <div style={{marginTop: '1rem', width: '30rem'}} className={styles.inputArea}>
+              <div style={{marginTop: '1rem', width: isMobile ? '100%' : '30rem'}} className={styles.inputArea}>
                 <label>Senha</label>
                 <div className={styles.inputWrapped}>
                   <input type={showPassword ? 'text' : 'password'} onChange={v => setPassword(v.target.value)} value={password} />
@@ -200,7 +203,7 @@ export default function Login() {
           </>
           }
 
-          <div onClick={isLogin ? submitLogin : submitRegister} style={{width: isLogin ? '30rem' : '40%'}} className={styles.submit}>
+          <div onClick={isLogin ? submitLogin : submitRegister} style={{width: isLogin ? '60%' : '50%'}} className={styles.submit}>
             <span>{isLogin ? 'Login' : 'Criar conta'}</span>
           </div>
 
