@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# **Dashboard bancário**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Dashboard feito para que o usuário possa organizar seu dinheiro, podendo fazer depósito e saque de dinheiro, com uma conexão à uma API feita em Laravel.
 
-## Available Scripts
+-- --
 
-In the project directory, you can run:
+## **Screenshots**
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<img src="public/home.png" width="600px" height="300px">
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<img src="public/modal.png" width="600px" height="300px">
 
-### `npm test`
+<img src="public/cadastro.png" width="600px" height="300px">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<img src="public/login.png" width="600px" height="300px">
 
-### `npm run build`
+-- --
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## **Features**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Criação de conta e geração automática de um número único para identificar a conta do usuário
+- Login e Logout com a utilização do Context
+- Depósito e Saque
+- Histórico de depósitos e saques
+- Filtrar histórico entre datas, exemplo: Ver o histórico entre os dias 12-01-2022 até 14-01-2022, todas as ações realizadas entre esse período serão retornadas e mostradas no histórico
+- Histórico de saldo diário em um gráfico para ver a evolução entre os ultimos 6 dias.
+- A cada depósito ou saque realizado, o Saldo, Histórico e o Gráfico são atualizados automaticamentes para retornar as novas informações
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+-- --
 
-### `npm run eject`
+## **Getting Started**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Abra o Prompt de Comando
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    git clone https://github.com/MatheusGomesRocha/dashboard
+    cd dashboard && npm install
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    git clone https://github.com/MatheusGomesRocha/dashboard_backend
+    cd dashboard_backend && php artisan serve
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Para o frontend abra um novo Prompt de Comando
 
-## Learn More
+    cd path/dashboard && npm start
+    
+### Para o backend abra um novo Prompt de Comando
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    Tenha PHP e Composer configurados na sua variável global PATH
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    cd path/dashboard_backend
 
-### Code Splitting
+    composer install --no-scripts
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    cp .env.example .env
 
-### Analyzing the Bundle Size
+    php artisan key:generate
+    
+    php artisan migrate --seed
+    
+    npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+    php artisan serve
+    
 
-### Making a Progressive Web App
+-- --
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## **Tecnologia usada**
 
-### Advanced Configuration
+- React
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+-- --
+## Meta
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Matheus Gomes
+- Email - matheusgomes192@hotmail.com
+- Linkedin - https://www.linkedin.com/in/matheus-gomes-2a61a8190/ 

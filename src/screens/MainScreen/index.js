@@ -20,6 +20,9 @@ export default function MainScreen () {
     
     const [openDepositModal, setOpenDepositModal] = useState(false);
     const [openWithdrawModal, setOpenWithdrawModal] = useState(false);
+    const [openDeleteHistoryModal, setOpenDeleteHistoryModal] = useState(false);
+
+    const [transactionId, setTransactionId] = useState(0);
 
     const [depositValue, setDepositValue] = useState(0);
     const [withdrawValue, setWithdrawValue] = useState(0);
@@ -198,8 +201,40 @@ export default function MainScreen () {
         }
     }
 
+    function openTransaction($id) {
+        setOpenDeleteHistoryModal(true);
+        setTransactionId($id);
+    }
+
+    function deleteTransactionHistory() {
+        api.post(`${userAccount}/${transactionId}/delete`).then((res) => {
+            setOpenDeleteHistoryModal(false);
+            setLoader(true);
+
+            api.get(`${userAccount}/transactions`).then((res) => setTransactions(res.data));
+        });
+    }
+
     return(
         <div className={styles.container}>
+            {openDeleteHistoryModal ? 
+                <div className={styles.modalHistoryContainer}>
+                    <div className={styles.modalHistory}>
+                        <p>Você deseja apagar esse dado do histórico?</p>
+
+                        <div className={styles.inlineButton}>
+                            <div onClick={deleteTransactionHistory} className={styles.deleteButton}>
+                                <span>Apagar</span>
+                            </div>
+                            <div onClick={() => setOpenDeleteHistoryModal(false)} className={styles.cancelButton}>
+                                <span>Cancelar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                : null
+            }
+            
             {openDepositModal ? 
                 <div className={styles.modalContainer}>
                     <div className={styles.modal}>
@@ -302,17 +337,20 @@ export default function MainScreen () {
 
                     <table className={styles.transactionArea}>
                         {loader ? 
-                        <div style={{margin: '5rem 0'}} className={styles.loader}>
-                            <Oval type="Oval" color="#000" height={30} width={30} />
-                        </div> 
-                        : 
-                        transactions.map((item, k) => (
-                            <tbody key={k}>
-                                <td style={{color: item.type === 'withdraw' ? '#CA0808' : '#548C1D'}} className={styles.type}>{item.type === 'withdraw' ? 'Saque' : 'Depósito'}</td>
-                                <td className={styles.date}>{item.date}</td>
-                                <td style={{color: item.type === 'withdraw' ? '#CA0808' : '#548C1D'}} className={styles.value}>{item.type === 'withdraw' ? '-' : '+'} R$ {item.value.toFixed(2)}</td>
+                            <div style={{margin: '5rem 0'}} className={styles.loader}>
+                                <Oval type="Oval" color="#000" height={30} width={30} />
+                            </div> 
+                            : 
+                            <tbody>
+                                {transactions.map((item, k) => (
+                                    <div onClick={() => openTransaction(item.id)} key={k}>
+                                        <td style={{color: item.type === 'withdraw' ? '#CA0808' : '#548C1D'}} className={styles.type}>{item.type === 'withdraw' ? 'Saque' : 'Depósito'}</td>
+                                        <td className={styles.date}>{item.date}</td>
+                                        <td style={{color: item.type === 'withdraw' ? '#CA0808' : '#548C1D'}} className={styles.value}>{item.type === 'withdraw' ? '-' : '+'} R$ {item.value.toFixed(2)}</td>
+                                    </div>
+                                ))}
                             </tbody>
-                        ))}
+                        }
                     </table>
                 </div>
             </section>
